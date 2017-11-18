@@ -6,9 +6,12 @@ const TickerClass = require('./broadcaster.js');
 const Ticker = new TickerClass()
 Ticker.startTicking()
 
+var incidentCount = 0;
+
 // import Timi function
 
 function sensorMooseCallback() {
+	incidentCount++;
 	Req.reportMoose()
 	Ticker.write([
 		'CAR < Pilot ' + NAME + '> ** An obstacle detected.    **\n',
@@ -19,6 +22,7 @@ function sensorMooseCallback() {
 // setTimi(mooseCallback)
 
 function sensorHoleCallback() {
+	incidentCount++;
 	Req.reportHole()
 	Ticker.write([
 		'CAR < Pilot ' + NAME + '> ** An obstacle detected.    **\n',
@@ -30,6 +34,7 @@ function sensorHoleCallback() {
 // setTimi(holeCallback)
 
 function reportCrash() {
+	incidentCount++;
 	Req.reportCrash(function (success) {
 		return true
 	})
@@ -74,6 +79,22 @@ function joinServer() {
 	})
 }
 
+function checkIncidents() {
+	Req.getIncidentCount(function (count) {
+		if (parseInt(count) > incidentCount) {
+			incidentCount = parseInt(count)
+			Req.sendReceived()
+			Ticker.write([
+				'CAR < > ** Warning received!    **\n',
+				'CAR < > ** Slowing down... **',
+				'\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n'
+			])
+		} else {
+			return true
+		}
+	})
+}
+
 function emptyTerminalScreen() {
 	for (var i = 0; i < 30; i++) {
 		console.log('')
@@ -82,13 +103,13 @@ function emptyTerminalScreen() {
 emptyTerminalScreen()
 
 
-joinServer()
+//joinServer()
 
 setInterval(function () {
 	//sensorMooseCallback()
 	//sensorHoleCallback()
 
-	//queryServer
+	checkIncidents()
 }, 1000)
 
 //Req.leaveServer()

@@ -7,6 +7,24 @@ function Request(name) {
 	this.holeURL = 'http://127.0.0.1:3000/hole'
 	this.leaveURL = 'http://127.0.0.1:3000/leave'
 	this.crashURL = 'http://127.0.0.1:3000/crash'
+	this.getIncidentCountURL = 'http://127.0.0.1:3000/incidentCount'
+	this.receivedURL = 'http://127.0.0.1:3000/received'
+}
+
+Request.prototype.sendReceived = function () {
+	const url = this.receivedURL
+	this.makeHttpRequest(url, function () {
+		return true
+	}, function (err) {
+		return false
+	})
+}
+
+Request.prototype.getIncidentCount = function (successCallback) {
+	const url = this.getIncidentCountURL
+	this.makeHttpRequest(url, successCallback, function (err) {
+		return false
+	})
 }
 
 Request.prototype.joinServer = function (success, failure) {
@@ -59,8 +77,12 @@ Request.prototype.makeHttpRequest = function (url, successCallback, errorCallbac
 		});
 		// The whole response has been received. Print out the result.
 		resp.on('end', () => {
-			successCallback(data)
-			return true;
+			if (data === '400') {
+				successCallback(false)
+			} else {
+				successCallback(data)
+				return true;
+			}
 		});
 	}).on("error", (err) => {
 		errorCallback("Error: " + err.message)

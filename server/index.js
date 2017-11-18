@@ -8,6 +8,7 @@ Broadcaster.startTicking()
 const SERVER_NAME = 'Supervisor Steve'
 
 var hadIncidents = false
+var incidentCount = 0
 
 app.get('/join', (req, res) => {
 	//console.log(req.query)
@@ -17,19 +18,23 @@ app.get('/join', (req, res) => {
 		['me', ' '],
 		['me', '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n']
 	])
-	if (hadIncidents) {
+	if (incidentCount > 0) {
 		res.send('incidents')
 	} else {
 		res.send('OK')
 	}
 })
 
+app.get('/incidentCount', (req, res) => {
+	res.send('' + incidentCount)
+})
+
 app.get('/moose', (req, res) => {
 	if (Broadcaster.isBusy) {
-		res.status(400);
+		res.send('400');
 		res.send('Supervisor busy');
 	} else {
-		hadIncidents = true
+		incidentCount++;
 		//console.log(req.query)
 		Broadcaster.broadcast([
 			['me', ' '],
@@ -55,10 +60,9 @@ app.get('/moose', (req, res) => {
 
 app.get('/hole', (req, res) => {
 	if (Broadcaster.isBusy) {
-		res.status(400);
-		res.send('Supervisor busy');
+		res.send('400');
 	} else {
-		hadIncidents = true
+		incidentCount++;
 		//console.log(req.query)
 		Broadcaster.broadcast([
 			['me', ' '],
@@ -86,10 +90,9 @@ app.get('/hole', (req, res) => {
 
 app.get('/crash', (req, res) => {
 	if (Broadcaster.isBusy) {
-		res.status(400);
-		res.send('Supervisor busy');
+		res.send('400');
 	} else {
-		hadIncidents = true
+		incidentCount++;
 		//console.log(req.query)
 		Broadcaster.broadcast([
 			['me', ' '],
