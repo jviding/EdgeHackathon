@@ -14,6 +14,7 @@ app.get('/join', (req, res) => {
 	Broadcaster.broadcast([
 		['me', 'EDGE      ** Pilot ' + req.query.name + ' has joined.'],
 		['me', ' '],
+		['me', ' '],
 		['me', '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n']
 	])
 	if (hadIncidents) {
@@ -31,12 +32,16 @@ app.get('/moose', (req, res) => {
 		hadIncidents = true
 		//console.log(req.query)
 		Broadcaster.broadcast([
+			['me', ' '],
+			['me', ' '],
+			['me', ' '],
 			['me', 'EDGE < Pilot ' + req.query.name + '> There is an obstacle at the coordinates [60.226, 24.946].'],
 			['me', 'EDGE < Pilot ' + req.query.name + '> Here\'s the sensor data: data.txt.'],
 			['me', 'EDGE < Supervisor Steve> Let me see.'],
 			['me', 'EDGE < Supervisor Steve> ** Analyzing the data... **'],
 			['me', 'EDGE < Supervisor Steve> ** ... **'],
 			['me', 'EDGE < Supervisor Steve> It\'s a moose! Watch out!'],
+			['me', ' '],
 			['me', '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n']
 		])
 		Broadcaster.broadcast([
@@ -56,6 +61,9 @@ app.get('/hole', (req, res) => {
 		hadIncidents = true
 		//console.log(req.query)
 		Broadcaster.broadcast([
+			['me', ' '],
+			['me', ' '],
+			['me', ' '],
 			['me', 'EDGE < Pilot ' + req.query.name + '> Whoooooaaa!!'],
 			['me', 'EDGE < Pilot ' + req.query.name + '> The road is bumpy at [61.315, 23.527].'],
 			['me', 'EDGE < Pilot ' + req.query.name + '> Here\'s the sensor data: data.txt.'],
@@ -64,6 +72,7 @@ app.get('/hole', (req, res) => {
 			['me', 'EDGE < Supervisor Steve> ** ... **'],
 			['me', 'EDGE < Supervisor Steve> There\'s a hole in the road.'],
 			['me', 'EDGE < Supervisor Steve> I have informed the road maintenance and it will be fixed!'],
+			['me', ' '],
 			['me', '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n']
 		])
 		Broadcaster.broadcast([
@@ -75,9 +84,31 @@ app.get('/hole', (req, res) => {
 	}
 })
 
+app.get('/crash', (req, res) => {
+	if (Broadcaster.isBusy) {
+		res.status(400);
+		res.send('Supervisor busy');
+	} else {
+		hadIncidents = true
+		//console.log(req.query)
+		Broadcaster.broadcast([
+			['me', ' '],
+			['me', 'EDGE < Pilot ' + req.query.name + '> There is an obstacle at the coordinates [60.226, 24.946].'],
+			['me', 'EDGE < Pilot ' + req.query.name + '> Here\'s the sensor data: data.txt.'],
+			['me', 'EDGE < Supervisor Steve> Let me see.'],
+			['me', 'EDGE < Supervisor Steve> ** Analyzing the data... **'],
+			['me', 'EDGE < Supervisor Steve> ** ... **'],
+			['me', 'EDGE < Supervisor Steve> Oh, dear. It\'s a car accident.'],
+			['me', 'EDGE < Supervisor Steve> With the infamouse moose.\n'],
+			['me', 'EDGE < Supervisor Steve> There driver should have probably used the Smart Cars -solutions.']
+		])
+		res.send('Crash noted.')
+	}
+})
+
 app.get('/received', (req, res) => {
 	//console.log(req.query)
-	Broadcaster.broadcast([['all', 'BROADCAST < Pilot ' + req.query.name + '> Received.']])
+	Broadcaster.broadcast([['all', '\nBROADCAST < Pilot ' + req.query.name + '> Received.\n']])
 	res.send('Good bye!')
 })
 

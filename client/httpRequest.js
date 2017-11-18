@@ -6,6 +6,7 @@ function Request(name) {
 	this.mooseURL = 'http://127.0.0.1:3000/moose'
 	this.holeURL = 'http://127.0.0.1:3000/hole'
 	this.leaveURL = 'http://127.0.0.1:3000/leave'
+	this.crashURL = 'http://127.0.0.1:3000/crash'
 }
 
 Request.prototype.joinServer = function (success, failure) {
@@ -16,7 +17,8 @@ Request.prototype.joinServer = function (success, failure) {
 Request.prototype.reportMoose = function () {
 	const url = this.mooseURL + '?name=' + this.name
 	this.makeHttpRequest(url, function (resp) {
-		console.log(resp)
+		return true
+		//console.log(resp)
 	}, function (err) {
 		console.log(err)
 	})
@@ -25,8 +27,16 @@ Request.prototype.reportMoose = function () {
 Request.prototype.reportHole = function () {
 	const url = this.holeURL + '?name=' + this.name
 	this.makeHttpRequest(url, function (resp) {
-		console.log(resp)
+		return true
+		//console.log(resp)
 	}, function (err) {
+		console.log(err)
+	})
+}
+
+Request.prototype.reportCrash = function (successCallback) {
+	const url = this.crashURL + '?name=' + this.name
+	this.makeHttpRequest(url, successCallback, function (err) {
 		console.log(err)
 	})
 }
