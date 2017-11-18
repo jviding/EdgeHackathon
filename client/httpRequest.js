@@ -2,13 +2,14 @@ const http = require('http');
 
 function Request(name) {
 	this.name = name
-	this.joinURL = 'http://127.0.0.1:3000/join'
-	this.mooseURL = 'http://127.0.0.1:3000/moose'
-	this.holeURL = 'http://127.0.0.1:3000/hole'
-	this.leaveURL = 'http://127.0.0.1:3000/leave'
-	this.crashURL = 'http://127.0.0.1:3000/crash'
-	this.getIncidentCountURL = 'http://127.0.0.1:3000/incidentCount'
-	this.receivedURL = 'http://127.0.0.1:3000/received'
+	var IP = '127.0.0.1'
+	this.joinURL = 'http://'+IP+':3000/join'
+	this.mooseURL = 'http://'+IP+':3000/moose'
+	this.holeURL = 'http://'+IP+':3000/hole'
+	this.leaveURL = 'http://'+IP+':3000/leave'
+	this.crashURL = 'http://'+IP+':3000/crash'
+	this.getIncidentCountURL = 'http://'+IP+':3000/incidentCount'
+	this.receivedURL = 'http://'+IP+':3000/received'
 }
 
 Request.prototype.sendReceived = function () {
