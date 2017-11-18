@@ -1,0 +1,84 @@
+Devices:
+1. Supervisor Steve: 
+2. Pilot Robert:
+3. Pilot John:
+4. Pilot Lisa:
+5. Pilot Bob:
+
+
+Case 1. Clients join
+
+	Pilot Channel:
+	
+	** You are now driving the highway E45 from Tuusula to Helsinki. **
+	Supervisor Steve: Hello <name>! 
+	Supervisor Steve: Highway E45 status report:
+	Supervisor Steve:    - No active alerts
+
+Case 2. Moose alert
+
+	Supervisor Channel:
+
+	<Name>: There is an obstacle at the coordinates [60.226, 24.946].
+	<Name>: Here's the sensor data: data.txt
+	Supervisor Steve: Let me see.
+	** Analyzing the data... **
+	Supervisor Steve: It's a moose! Watch out!
+
+	Broadcast Channel:
+
+	** Breaking news! **
+	Supervisor Steve: A moose has been detected at [60.226, 24.946].
+	Supervisor Steve: All drive with care!
+	<Name1>: Received.
+	<Name2>: Received.
+	...
+
+	Pilot channels:
+	<Name>: Slowing speed...
+	<Name>: Moose avoided.
+
+Case 3. Bumps on the road:
+
+	Supervisor Channel:
+
+	<Name>: Whoooooaaa!!
+	<Name>: The road is bumpy at [61.315, 23.527].
+	<Name>: Here's the sensor data: data.txt
+	Supervisor Steve: Let me see.
+	** Analyzing the data... **
+	Supervisor Steve: There's a hole in the road. I have informed the road maintenance and it shall be fixed.
+
+	Broadcast Channel:
+
+	** Breaking news! **
+	Supervisor Steve: A hole has been detected at [61.315, 23.527].
+	Supervisor Steve: All drive with care!
+	<Name1>: Received.
+	<Name2>: Received.
+	...
+
+	Pilot channels:
+	<Name>: Slowing speed...
+	<Name>: Hole avoided.
+
+Case 4.
+
+	Pilot Channel:
+	
+	** You are now driving the highway E45 from Tuusula to Helsinki. **
+	Supervisor Steve: Hello <name>! 
+	Supervisor Steve: Highway E45 status report:
+	Supervisor Steve:    Risk: High
+	Supervisor Steve:      - Moose at [60.226, 24.946].
+	Supervisor Steve:    Risk: Low
+	Supervisor Steve:      - Hole at [61.315, 23.527].
+
+Case 5.
+
+	Supervisor Channel:
+
+	<Name>: I have detected a car accident at [60.226, 24.951].
+	*
+	Supervisor Steve: Oh, dear.
+	Supervisor Steve: He should have probably used the Smart Cars -systems.
