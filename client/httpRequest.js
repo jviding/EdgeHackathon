@@ -8,13 +8,9 @@ function Request(name) {
 	this.leaveURL = 'http://127.0.0.1:3000/leave'
 }
 
-Request.prototype.joinServer = function () {
+Request.prototype.joinServer = function (success, failure) {
 	const url = this.joinURL + '?name=' + this.name
-	this.makeHttpRequest(url, function (resp) {
-		console.log(resp)
-	}, function (err) {
-		console.log(err)
-	})
+	this.makeHttpRequest(url, success, failure)
 }
 
 Request.prototype.reportMoose = function () {
