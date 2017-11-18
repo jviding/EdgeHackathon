@@ -17,7 +17,6 @@ Sensors.prototype.enableSensors = function() {
   var that = this;
   Sensordrone.discover(function(sensordrone) {
     that._sd = sensordrone;
-    console.log("that._sd ", that._sd );
     async.series([
       function(callback) {
         console.log('connect');
