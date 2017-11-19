@@ -6,17 +6,21 @@ const TickerClass = require('./broadcaster.js');
 const Ticker = new TickerClass()
 Ticker.startTicking()
 
-const Sensors = require('./sensors.js');
-var s = new Sensors();
 
-s.enableSensors();
+var sensorCar = false;
 
-setTimeout(function() {
-  setInterval(function() {
-    s.readSensors();
-  }, 12000);
-}, 6000);
+if (sensorCar) {
+	const Sensors = require('./sensors.js');
+	var s = new Sensors();
 
+	s.enableSensors();
+
+	setTimeout(function() {
+	  setInterval(function() {
+	    s.readSensors();
+	  }, 12000);
+	}, 6000);
+}
 
 
 var incidentCount = 0;
@@ -128,12 +132,15 @@ joinServer()
 
 setInterval(function () {
 	//sensorMooseCallback()
-	if (s.isMoose()) {
-		sensorMooseCallback()
-	}
 
-	if (s.isHole()) {
-		sensorHoleCallback()
+	if (sensorCar) {
+		if (s.isMoose()) {
+			sensorMooseCallback()
+		}
+
+		if (s.isHole()) {
+			sensorHoleCallback()
+		}
 	}
 	//sensorHoleCallback()
 

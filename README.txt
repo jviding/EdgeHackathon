@@ -46,4 +46,31 @@ More at:
  $ curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
  $ sudo apt-get install -y nodejs
  ($ sudo apt-get install -y build-essential)
- 
+
+
+
+
+
+# Bluetooth paring
+
+https://www.cnet.com/how-to/how-to-setup-bluetooth-on-a-raspberry-pi-3/
+
+sudo bluetoothctl
+agent on
+scan on
+pair XX:XX:XX:XX:XX:XX. Pincode: 0000
+connect XX:XX:XX:XX:XX:XX.
+quit
+
+To list all paired devices: devices
+
+
+berry-2 00:17:E9:50:E9:BB SensordroneE9BB
+berry-6 00:17:E9:50:E1:75 SensordroneE175
+
+
+Before launching, make sure you have done:
+npm install async
+npm install sensordrone
+
+as npm install is not enough.
