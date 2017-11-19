@@ -2,7 +2,7 @@ const http = require('http');
 
 function Request(name) {
 	this.name = name
-	var IP = '127.0.0.1'
+	var IP = '192.168.43.245'
 	this.joinURL = 'http://'+IP+':3000/join'
 	this.mooseURL = 'http://'+IP+':3000/moose'
 	this.holeURL = 'http://'+IP+':3000/hole'
@@ -12,8 +12,8 @@ function Request(name) {
 	this.receivedURL = 'http://'+IP+':3000/received'
 }
 
-Request.prototype.sendReceived = function () {
-	const url = this.receivedURL
+Request.prototype.sendReceived = function (name) {
+	const url = this.receivedURL + '?name=' + name
 	this.makeHttpRequest(url, function () {
 		return true
 	}, function (err) {
