@@ -1,5 +1,4 @@
 const Request = require('./httpRequest.js');
-const sleep = require('sleep')
 
 function Broadcast() {
 	this.Req = new Request();
@@ -17,17 +16,24 @@ Broadcast.prototype.startTicking = function () {
 			var message = this.messages.shift()
 			if (message[0] === 'me') {
 				console.log(message[1])
-			} else {
+			} else if (message[0] === 'all') {
 				this.Req.broadcast(message[1])
 			}
+			if (messages.length > 0 && messages[0][0] === 'func') {
+				var callback = messages[0][1];
+				callback()
+			}			
 		}
 	}.bind(this), 2000);
 }
 
-Broadcast.prototype.broadcast = function (messages) {
+Broadcast.prototype.broadcast = function (messages, incrementIncidents) {
 	this.isBusy = true
 	for (var i = 0; i < messages.length; i++) {
 		this.messages.push(messages[i])
+	}
+	if (incrementIncidents) {
+		this.messages.push([['func', incrementIncidents]])
 	}
 }
 
