@@ -24,10 +24,10 @@ if (sensorCar) {
 
 
 var incidentCount = 0;
-Req.getIncidentCount(function (count) {
+/*Req.getIncidentCount(function (count) {
 	incidentCount = count;
 	console.log('Initial count: ' + incidentCount)
-})
+})*/
 
 // import Timi function
 
@@ -103,12 +103,13 @@ function joinServer() {
 function checkIncidents() {
 	Req.getIncidentCount(function (count) {
 		if (parseInt(count) > incidentCount) {
-			console.log('Incident count ++!')
 			incidentCount = parseInt(count)
 			Req.sendReceived()
 			Ticker.write([
 				'CAR < > ** Warning received!    **\n',
 				'CAR < > ** Slowing down... **',
+				' ',
+				' ',
 				'\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n'
 			])
 		} else {
@@ -124,31 +125,37 @@ function emptyTerminalScreen() {
 }
 emptyTerminalScreen()
 
+function main() {
+	setInterval(function () {
+		//sensorMooseCallback()
+
+		if (sensorCar) {
+			if (s.isMoose()) {
+				sensorMooseCallback()
+			}
+
+			if (s.isHole()) {
+				sensorHoleCallback()
+			}
+		}
+		//sensorHoleCallback()
+
+		try {
+			checkIncidents()
+		} catch(err) {
+			return true;
+		}
+	}, 1000)
+}
+
+//Req.leaveServer()
+
+/*
+	MAGIC STARTS HERE
+*/
 
 joinServer()
+main()
 
 //sensorMooseCallback()
 //sensorHoleCallback()
-
-setInterval(function () {
-	//sensorMooseCallback()
-
-	if (sensorCar) {
-		if (s.isMoose()) {
-			sensorMooseCallback()
-		}
-
-		if (s.isHole()) {
-			sensorHoleCallback()
-		}
-	}
-	//sensorHoleCallback()
-
-	try {
-		checkIncidents()
-	} catch(err) {
-		return true;
-	}
-}, 1000)
-
-//Req.leaveServer()
