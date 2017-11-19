@@ -7,6 +7,9 @@ const Ticker = new TickerClass()
 Ticker.startTicking()
 
 var incidentCount = 0;
+Req.getIncidentCount(function (count) {
+	incidentCount = count;
+})
 
 // import Timi function
 
