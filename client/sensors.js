@@ -29,40 +29,45 @@ function Sensors() {
 
 Sensors.prototype.enableSensors = function() {
   var that = this;
-  Sensordrone.discover(function(sensordrone) {
-    that._sd = sensordrone;
-    async.series([
-      function(callback) {
-        if (debug)
-          console.log('connect');
-        sensordrone.connect(callback);
-        that._isConnected = true;
+  try {
+    Sensordrone.discover(function(sensordrone) {
+      that._sd = sensordrone;
+      async.series([
+        function(callback) {
+          if (debug)
+            console.log('connect');
+          sensordrone.connect(callback);
+          that._isConnected = true;
 
-        sensordrone.on('disconnect', function() {
-          console.log('disconnected!');
-          process.exit(0);
-        });
-      },
-      function(callback) {
-        if (debug)
-          console.log('discoverServicesAndCharacteristics');
-        sensordrone.discoverServicesAndCharacteristics(callback);
-        that._isServicesDiscovered = true;
-      },
-      function(callback) {
-        if (debug)
-          console.log('enable RGBC');
-        sensordrone.enableRGBC(function() {
-          that._isSensorEnabled = true;
-          callback();
-        });
-      },
-      function(callback) {
-        //console.log('disconnect');
-        //sensordrone.disconnect(callback);
-      }
-    ]);
-  });
+          sensordrone.on('disconnect', function() {
+            console.log('disconnected!');
+            process.exit(0);
+          });
+        },
+        function(callback) {
+          if (debug)
+            console.log('discoverServicesAndCharacteristics');
+          sensordrone.discoverServicesAndCharacteristics(callback);
+          that._isServicesDiscovered = true;
+        },
+        function(callback) {
+          if (debug)
+            console.log('enable RGBC');
+          sensordrone.enableRGBC(function() {
+            that._isSensorEnabled = true;
+            callback();
+          });
+        },
+        function(callback) {
+          //console.log('disconnect');
+          //sensordrone.disconnect(callback);
+        }
+      ]);
+    });
+  } catch (ex) {
+    if (debug)
+      console.log(this.lastLux);
+  }
 
 }
 
@@ -74,22 +79,22 @@ Sensors.prototype.readSensors = function() {
   try {
     if (that.isReady()) {
       that._sd.readRGBC(function(r, g, b, c, lux, temp) {
-          //console.log('RGBC = %d %d %d %d %d Lux %d K', r.toFixed(1), g.toFixed(1), b.toFixed(1), c.toFixed(1), lux.toFixed(1), temp.toFixed(1));
-          this.lastLux = lux.toFixed(1);
-          if (debug)
-            console.log('RGBC = ' + this.lastLux);
+        //console.log('RGBC = %d %d %d %d %d Lux %d K', r.toFixed(1), g.toFixed(1), b.toFixed(1), c.toFixed(1), lux.toFixed(1), temp.toFixed(1));
+        this.lastLux = lux.toFixed(1);
+        if (debug)
+          console.log('RGBC = ' + this.lastLux);
 
-          if (this.lastLux >= this.mooseLimit) {
-            this._isMoose = true;
-          }
-          if (this.lastLux <= this.holeLimit) {
-            this._isHole = true;
-          }
-        }.bind(this));
-      }
+        if (this.lastLux >= this.mooseLimit) {
+          this._isMoose = true;
+        }
+        if (this.lastLux <= this.holeLimit) {
+          this._isHole = true;
+        }
+      }.bind(this));
+    }
   } catch (ex) {
     if (debug)
-    console.log(this.lastLux);
+      console.log(this.lastLux);
   }
 }
 
