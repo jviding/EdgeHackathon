@@ -2,7 +2,8 @@ const http = require('http');
 
 function Request(name) {
 	this.name = name
-	var IP = '192.168.43.245'
+	//var IP = '192.168.43.245'
+	var IP = '127.0.0.1'
 	this.joinURL = 'http://'+IP+':3000/join'
 	this.mooseURL = 'http://'+IP+':3000/moose'
 	this.holeURL = 'http://'+IP+':3000/hole'

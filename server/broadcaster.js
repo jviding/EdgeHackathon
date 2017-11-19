@@ -25,7 +25,7 @@ Broadcast.prototype.startTicking = function () {
 			if (this.messages.length > 0 && this.messages[0][0] === 'func') {
 				var callback = this.messages[0][1];
 				callback()
-				console.log('callback called!')
+				//console.log('callback called!')
 			}			
 		}
 	}.bind(this), 2000);
