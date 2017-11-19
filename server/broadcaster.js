@@ -31,12 +31,12 @@ Broadcast.prototype.startTicking = function () {
 	}.bind(this), 2000);
 }
 
-Broadcast.prototype.broadcast = function (messages, incrementIncidents) {
+Broadcast.prototype.broadcast = function (messages, increment, incrementIncidents) {
 	this.isBusy = true
 	for (var i = 0; i < messages.length; i++) {
 		this.messages.push(messages[i])
 	}
-	if (incrementIncidents) {
+	if (increment) {
 		this.messages.push(['func', incrementIncidents])
 	}
 }

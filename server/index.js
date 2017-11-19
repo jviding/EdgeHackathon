@@ -17,7 +17,7 @@ app.get('/join', (req, res) => {
 		['me', ' '],
 		['me', ' '],
 		['me', '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n']
-	], false)
+	], false, false)
 	if (incidentCount > 0) {
 		res.send('incidents')
 	} else {
@@ -32,7 +32,6 @@ app.get('/incidentCount', (req, res) => {
 app.get('/moose', (req, res) => {
 	if (Broadcaster.isBusy) {
 		res.send('400');
-		res.send('Supervisor busy');
 	} else {
 		//console.log(req.query)
 		Broadcaster.broadcast([
@@ -47,12 +46,12 @@ app.get('/moose', (req, res) => {
 			['me', 'EDGE < Supervisor Steve> It\'s a moose! Watch out!'],
 			['me', ' '],
 			['me', '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n']
-		], false)
+		], false, false)
 		Broadcaster.broadcast([
 			['all', 'BROADCAST < >      ** Breaking news! **\n'],
 			['all', 'BROADCAST < Supervisor Steve> A moose has been detected at [60.226, 24.946].'],
 			['all', 'BROADCAST < Supervisor Steve> All pilots drive with care!']
-		], function () {
+		], true, function () {
 			incidentCount++;
 		})
 		res.send('Moose noted.')
@@ -63,7 +62,6 @@ app.get('/hole', (req, res) => {
 	if (Broadcaster.isBusy) {
 		res.send('400');
 	} else {
-		incidentCount++;
 		//console.log(req.query)
 		Broadcaster.broadcast([
 			['me', ' '],
@@ -79,12 +77,12 @@ app.get('/hole', (req, res) => {
 			['me', 'EDGE < Supervisor Steve> I have informed the road maintenance and it will be fixed!'],
 			['me', ' '],
 			['me', '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n']
-		], false)
+		], false, false)
 		Broadcaster.broadcast([
 			['all', 'BROADCAST < >      ** Breaking news! **\n'],
 			['all', 'BROADCAST < Supervisor Steve> A hole has been detected at [61.315, 23.527].'],
 			['all', 'BROADCAST < Supervisor Steve> All pilots drive with care!']
-		], function () {
+		], true, function () {
 			incidentCount++;
 		})
 		res.send('Hole noted.')
@@ -95,7 +93,6 @@ app.get('/crash', (req, res) => {
 	if (Broadcaster.isBusy) {
 		res.send('400');
 	} else {
-		incidentCount++;
 		//console.log(req.query)
 		Broadcaster.broadcast([
 			['me', ' '],
@@ -107,14 +104,14 @@ app.get('/crash', (req, res) => {
 			['me', 'EDGE < Supervisor Steve> Oh, dear. It\'s a car accident.'],
 			['me', 'EDGE < Supervisor Steve> With the infamouse moose.\n'],
 			['me', 'EDGE < Supervisor Steve> There driver should have probably used the Smart Cars -solutions.']
-		], false)
+		], false, false)
 		res.send('Crash noted.')
 	}
 })
 
 app.get('/received', (req, res) => {
 	//console.log(req.query)
-	Broadcaster.broadcast([['all', '\nBROADCAST < Pilot ' + req.query.name + '> Received.\n']], false)
+	Broadcaster.broadcast([['all', '\nBROADCAST < Pilot ' + req.query.name + '> Received.\n']], false, false)
 	res.send('Good bye!')
 })
 
