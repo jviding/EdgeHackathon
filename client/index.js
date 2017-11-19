@@ -122,12 +122,12 @@ function emptyTerminalScreen() {
 emptyTerminalScreen()
 
 
-joinServer()
+//joinServer()
 
 //sensorMooseCallback()
-//sensorHoleCallback()
+sensorHoleCallback()
 
-setInterval(function () {
+/**setInterval(function () {
 	//sensorMooseCallback()
 	if (s.isMoose()) {
 		sensorMooseCallback()
@@ -143,6 +143,6 @@ setInterval(function () {
 	} catch(err) {
 		return true;
 	}
-}, 1000)
+}, 1000)**/
 
 //Req.leaveServer()
