@@ -20,10 +20,10 @@ setTimeout(function() {
 
 
 var incidentCount = 0;
-Req.getIncidentCount(function (count) {
+/*Req.getIncidentCount(function (count) {
 	incidentCount = count;
 	console.log('Initial count: ' + incidentCount)
-})
+})*/
 
 // import Timi function
 
@@ -105,6 +105,8 @@ function checkIncidents() {
 			Ticker.write([
 				'CAR < > ** Warning received!    **\n',
 				'CAR < > ** Slowing down... **',
+				' ',
+				' ',
 				'\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n'
 			])
 		} else {
@@ -121,10 +123,10 @@ function emptyTerminalScreen() {
 emptyTerminalScreen()
 
 
-joinServer()
+//joinServer()
 
 //sensorMooseCallback()
-//sensorHoleCallback()
+sensorHoleCallback()
 
 setInterval(function () {
 	//sensorMooseCallback()
