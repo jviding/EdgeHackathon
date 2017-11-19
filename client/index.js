@@ -50,12 +50,10 @@ function sensorHoleCallback() {
 		'CAR < Pilot ' + NAME + '> ** Avoiding the obstacle... **',
 		'\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n'
 	])
-
 }
 // setTimi(holeCallback)
 
 function reportCrash() {
-	incidentCount++;
 	Req.reportCrash(function (success) {
 		return true
 	})
@@ -134,7 +132,7 @@ function main() {
 				sensorMooseCallback()
 			}
 
-			if (s.isHole()) {
+			if (s.isHole() && !s.isMoose()) {
 				sensorHoleCallback()
 			}
 		}
@@ -154,8 +152,8 @@ function main() {
 	MAGIC STARTS HERE
 */
 
-joinServer()
-main()
+//joinServer()
+//main()
 
 //sensorMooseCallback()
-//sensorHoleCallback()
+sensorHoleCallback()
