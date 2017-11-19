@@ -19,9 +19,13 @@ Broadcast.prototype.startTicking = function () {
 			} else if (message[0] === 'all') {
 				this.Req.broadcast(message[1])
 			}
+			//console.log('Messages length:')
+			//console.log(this.messages.length)
+			//console.log(this.messages[0][0])
 			if (this.messages.length > 0 && this.messages[0][0] === 'func') {
 				var callback = this.messages[0][1];
 				callback()
+				console.log('callback called!')
 			}			
 		}
 	}.bind(this), 2000);
@@ -33,7 +37,7 @@ Broadcast.prototype.broadcast = function (messages, incrementIncidents) {
 		this.messages.push(messages[i])
 	}
 	if (incrementIncidents) {
-		this.messages.push([['func', incrementIncidents]])
+		this.messages.push(['func', incrementIncidents])
 	}
 }
 
