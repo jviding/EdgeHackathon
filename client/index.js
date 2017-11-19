@@ -1,4 +1,4 @@
-const NAME = 'Robert';
+const NAME = 'Lisa';
 
 const Request = require('./httpRequest.js');
 const Req = new Request(NAME);
@@ -9,6 +9,7 @@ Ticker.startTicking()
 var incidentCount = 0;
 Req.getIncidentCount(function (count) {
 	incidentCount = count;
+	console.log('Initial count: ' + incidentCount)
 })
 
 // import Timi function
@@ -85,6 +86,7 @@ function joinServer() {
 function checkIncidents() {
 	Req.getIncidentCount(function (count) {
 		if (parseInt(count) > incidentCount) {
+			console.log('Incident count ++!')
 			incidentCount = parseInt(count)
 			Req.sendReceived()
 			Ticker.write([
@@ -106,12 +108,12 @@ function emptyTerminalScreen() {
 emptyTerminalScreen()
 
 
-//joinServer()
+joinServer()
 
 //sensorMooseCallback()
-sensorHoleCallback()
+//sensorHoleCallback()
 
-/*setInterval(function () {
+setInterval(function () {
 	//sensorMooseCallback()
 	//sensorHoleCallback()
 
@@ -120,6 +122,6 @@ sensorHoleCallback()
 	} catch(err) {
 		return true;
 	}
-}, 1000)*/
+}, 1000)
 
 //Req.leaveServer()
