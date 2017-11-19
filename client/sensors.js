@@ -1,7 +1,7 @@
 var Sensordrone = require('sensordrone');
 var util = require('util');
 var async = require('async');
-
+var debug = false;
 
 // npm install async
 // npm install sensordrone
@@ -11,8 +11,8 @@ var async = require('async');
 
 
 function Sensors() {
-  this.holelimit = 30;
-  this.mooselimit = 4000;
+  this.holeLimit = 40;
+  this.mooseLimit = 4000;
 
   this._sd = null;
   this._lastLux = 3000;
@@ -33,7 +33,8 @@ Sensors.prototype.enableSensors = function() {
     that._sd = sensordrone;
     async.series([
       function(callback) {
-        console.log('connect');
+        if (debug)
+          console.log('connect');
         sensordrone.connect(callback);
         that._isConnected = true;
 
@@ -43,12 +44,14 @@ Sensors.prototype.enableSensors = function() {
         });
       },
       function(callback) {
-        console.log('discoverServicesAndCharacteristics');
+        if (debug)
+          console.log('discoverServicesAndCharacteristics');
         sensordrone.discoverServicesAndCharacteristics(callback);
         that._isServicesDiscovered = true;
       },
       function(callback) {
-        console.log('enable RGBC');
+        if (debug)
+          console.log('enable RGBC');
         sensordrone.enableRGBC(function() {
           that._isSensorEnabled = true;
           callback();
@@ -73,7 +76,8 @@ Sensors.prototype.readSensors = function() {
       that._sd.readRGBC(function(r, g, b, c, lux, temp) {
           //console.log('RGBC = %d %d %d %d %d Lux %d K', r.toFixed(1), g.toFixed(1), b.toFixed(1), c.toFixed(1), lux.toFixed(1), temp.toFixed(1));
           this.lastLux = lux.toFixed(1);
-          console.log('RGBC = ' + this.lastLux);
+          if (debug)
+            console.log('RGBC = ' + this.lastLux);
 
           if (this.lastLux >= this.mooseLimit) {
             this._isMoose = true;
@@ -81,9 +85,10 @@ Sensors.prototype.readSensors = function() {
           if (this.lastLux <= this.holeLimit) {
             this._isHole = true;
           }
-        }
-      }.bind(this));
+        }.bind(this));
+      }
   } catch (ex) {
+    if (debug)
     console.log(this.lastLux);
   }
 }
@@ -107,7 +112,8 @@ Sensors.prototype.isHole = function() {
 
 
 Sensors.prototype.closeSensors = function() {
-  console.log('disable RGBC');
+  if (debug)
+    console.log('disable RGBC');
   this._isConnected = false;
   this._sd.disconnect();
 }
@@ -123,21 +129,7 @@ Sensors.prototype.isReady = function() {
 
 
 
-var s = new Sensors();
 
-s.enableSensors();
-
-setTimeout(function() {
-  setInterval(function() {
-    s.readSensors();
-  }, 12000);
-}, 6000);
+module.exports = Sensors;
 
 //s.closeSensors();
-
-
-
-
-
-//s.ReadSensors();
-//s.CloseSensors();

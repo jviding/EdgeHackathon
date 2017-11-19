@@ -1,10 +1,23 @@
-const NAME = 'Robert';
+const NAME = 'John';
 
 const Request = require('./httpRequest.js');
 const Req = new Request(NAME);
 const TickerClass = require('./broadcaster.js');
 const Ticker = new TickerClass()
 Ticker.startTicking()
+
+const Sensors = require('./sensors.js');
+var s = new Sensors();
+
+s.enableSensors();
+
+setTimeout(function() {
+  setInterval(function() {
+    s.readSensors();
+  }, 12000);
+}, 6000);
+
+
 
 var incidentCount = 0;
 
@@ -106,10 +119,17 @@ emptyTerminalScreen()
 //joinServer()
 
 //sensorMooseCallback()
-sensorHoleCallback()
+//sensorHoleCallback()
 
-/*setInterval(function () {
+setInterval(function () {
 	//sensorMooseCallback()
+	if (s.isMoose()) {
+		sensorMooseCallback()
+	}
+
+	if (s.isHole()) {
+		sensorHoleCallback()
+	}
 	//sensorHoleCallback()
 
 	try {
@@ -117,6 +137,6 @@ sensorHoleCallback()
 	} catch(err) {
 		return true;
 	}
-}, 1000)*/
+}, 1000)
 
 //Req.leaveServer()
