@@ -83,7 +83,7 @@ function checkIncidents() {
 	Req.getIncidentCount(function (count) {
 		if (parseInt(count) > incidentCount) {
 			incidentCount = parseInt(count)
-			Req.sendReceived(NAME)
+			Req.sendReceived()
 			Ticker.write([
 				'CAR < > ** Warning received!    **\n',
 				'CAR < > ** Slowing down... **',
@@ -105,7 +105,8 @@ emptyTerminalScreen()
 
 //joinServer()
 
-sensorMooseCallback()
+//sensorMooseCallback()
+sensorHoleCallback()
 
 /*setInterval(function () {
 	//sensorMooseCallback()
