@@ -122,10 +122,10 @@ function emptyTerminalScreen() {
 emptyTerminalScreen()
 
 
-//joinServer()
+joinServer()
 
 //sensorMooseCallback()
-sensorHoleCallback()
+//sensorHoleCallback()
 
 setInterval(function () {
 	//sensorMooseCallback()
