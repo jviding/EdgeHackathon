@@ -121,28 +121,34 @@ function emptyTerminalScreen() {
 }
 emptyTerminalScreen()
 
+function main() {
+	setInterval(function () {
+		//sensorMooseCallback()
+		if (s.isMoose()) {
+			sensorMooseCallback()
+		}
 
-//joinServer()
+		if (s.isHole()) {
+			sensorHoleCallback()
+		}
+		//sensorHoleCallback()
 
-//sensorMooseCallback()
-sensorHoleCallback()
-
-/**setInterval(function () {
-	//sensorMooseCallback()
-	if (s.isMoose()) {
-		sensorMooseCallback()
-	}
-
-	if (s.isHole()) {
-		sensorHoleCallback()
-	}
-	//sensorHoleCallback()
-
-	try {
-		checkIncidents()
-	} catch(err) {
-		return true;
-	}
-}, 1000)**/
+		try {
+			checkIncidents()
+		} catch(err) {
+			return true;
+		}
+	}, 1000)
+}
 
 //Req.leaveServer()
+
+/*
+	MAGIC STARTS HERE
+*/
+
+joinServer()
+main()
+
+//sensorMooseCallback()
+//sensorHoleCallback()
