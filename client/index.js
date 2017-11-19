@@ -99,7 +99,6 @@ function joinServer() {
 function checkIncidents() {
 	Req.getIncidentCount(function (count) {
 		if (parseInt(count) > incidentCount) {
-			console.log('Incident count ++!')
 			incidentCount = parseInt(count)
 			Req.sendReceived()
 			Ticker.write([
