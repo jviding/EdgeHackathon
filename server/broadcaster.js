@@ -19,8 +19,8 @@ Broadcast.prototype.startTicking = function () {
 			} else if (message[0] === 'all') {
 				this.Req.broadcast(message[1])
 			}
-			if (messages.length > 0 && messages[0][0] === 'func') {
-				var callback = messages[0][1];
+			if (this.messages.length > 0 && this.messages[0][0] === 'func') {
+				var callback = this.messages[0][1];
 				callback()
 			}			
 		}
